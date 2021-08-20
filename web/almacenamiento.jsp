@@ -17,14 +17,13 @@
               crossorigin="anonymous">
         <style>
             #scroll{
-
-                height:600px;
-                width:600px;
+                height:550px;
+                width:550px;
                 overflow-y:scroll;
                 overflow-x:hidden;
             }
         </style>
-        
+
         <title>Pacientes</title>
     </head>
     <body>
@@ -34,13 +33,8 @@
 
         <%
             HttpSession sesion = request.getSession();
-            
-            ListaSEAdulto adultos = (ListaSEAdulto)sesion.getAttribute("miAdultos");
-            if (adultos == null) {
-                    sesion.setAttribute("misAdultos", adultos);
-                    adultos = new ListaSEAdulto();
-                }
-
+            ListaSEAdulto adultos = (ListaSEAdulto)sesion.getAttribute("misAdultos");
+  
             String identificacion = request.getParameter("identificacion");
             String nombre = request.getParameter("nombre");
             String apellidos = request.getParameter("apellidos");
@@ -48,17 +42,15 @@
             String encargado = request.getParameter("encargado");
             String ficha_medica = request.getParameter("ficha_medica");
 
-            if(identificacion != null){
+            if(nombre != null){
                 AdultoMayor adulto = new AdultoMayor(identificacion, nombre, apellidos, numero_habitacion,
                     encargado, ficha_medica, null, null);
-                sesion.setAttribute("adultino", adulto);
+                //sesion.setAttribute("adultino", adulto);
                 adultos.agregar(adulto);
-            }
-
-            
-            
+                
+            }            
             //out.println(adulto);
-%>
+        %>
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-4">
@@ -67,65 +59,59 @@
                              alt="Logo Provejez" width="375">
                     </figure>
                     <div class="d-grid gap-1  mt-3">
-                        <button class="btn btn-primary" type="button">Agregar</button>
-                        <button class="btn btn-primary" type="button">Volver</button>
+                        <a class="btn btn-primary" type="button" href="formularioAdultoMayor.jsp">                                
+                            Agregar
+                        </a>
+                        <a class="btn btn-primary" type="button" href="formularioAdultoMayor.jsp">                                
+                            Volver
+                        </a>
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="accordion accordion-flush" id="scroll">
+                    <div class="accordion accordion-flush mt-5 mr-5" id="scroll">
+                        <%
+                            if(adultos.esVacia() == true){                                
+                                for(int i = 0; i < adultos.tamanio(); i++) {
+                                    Integer indice = new Integer(i);
+                                    sesion.setAttribute("indice", indice);
                         
+                        %>
                         <div class="accordion-item">
-                            <h2 class="accordion-header" id="flush-headingOne">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            <h2 class="accordion-header" id="flush-heading<%=i%>">
+                                <button class="accordion-button collapsed" type="button" 
+                                        data-bs-toggle="collapse" data-bs-target="#flush-collapse<%=i%>" 
+                                        aria-expanded="false" aria-controls="flush-collapse<%=i%>">
                                     <div class="justify-content-beetwen">
-                                        <%=adultos.obtener(0).nombre  + " " + adultos.obtener(0).apellidos %>
-                                        Habitacion: <%=adultos.obtener(0).getNumero_habitacion()%>
+                                        <%=adultos.obtener(i).nombre  + " " + adultos.obtener(i).apellidos %>
+                                        Habitacion: <%=adultos.obtener(i).getNumero_habitacion()%>
                                     </div>
-                                    
+
                                 </button>
                             </h2>
-                            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body">
-                                    <button>
-                                        Hector
-                                        
-                                    </button>
-                                    <a href="formularioMedicamento.jsp">Hijole</a>
-                                        
+                            <div id="flush-collapse<%=i%>" class="accordion-collapse collapse" 
+                                 aria-labelledby="flush-heading<%=i%>" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body justify-content-center">      
+
+                                    <a class="btn btn-primary" href="#" role="button">Ver perfil</a>
+                                    <a class="btn btn-primary" href="formularioMedicamento.jsp" role="button">Modificar</a>
+                                    <a class="btn btn-primary" href="#" role="button">Eliminar</a>
+
                                 </div>
                             </div>
                         </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="flush-headingTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                    Accordion Item #2
-                                </button>
-                            </h2>
-                            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="flush-headingThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                    Accordion Item #3
-                                </button>
-                            </h2>
-                            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body">Placeholder content for this accordion,
-                                    which is intended to demonstrate the <code>.accordion-flush</code> 
-                                    class. This is the third item's accordion body. Nothing more exciting
-                                    happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
-                            </div>
-                        </div>
+                        <%   
+                            }
+                            } else {
+                            out.println("No hay adultos");
+                            }
+                        %>
                     </div>
                 </div>
             </div>
         </div>
-    </div> 
-    <script src="js/query.min.js"></script>}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
-    
-    
-</body>
+        <script src="js/query.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+
+    </body>
 </html>

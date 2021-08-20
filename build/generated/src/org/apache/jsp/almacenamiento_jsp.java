@@ -58,14 +58,13 @@ public final class almacenamiento_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("              crossorigin=\"anonymous\">\n");
       out.write("        <style>\n");
       out.write("            #scroll{\n");
-      out.write("\n");
-      out.write("                height:600px;\n");
-      out.write("                width:600px;\n");
+      out.write("                height:550px;\n");
+      out.write("                width:550px;\n");
       out.write("                overflow-y:scroll;\n");
       out.write("                overflow-x:hidden;\n");
       out.write("            }\n");
       out.write("        </style>\n");
-      out.write("        \n");
+      out.write("\n");
       out.write("        <title>Pacientes</title>\n");
       out.write("    </head>\n");
       out.write("    <body>\n");
@@ -76,13 +75,8 @@ public final class almacenamiento_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("        ");
 
             HttpSession sesion = request.getSession();
-            
-            ListaSEAdulto adultos = (ListaSEAdulto)sesion.getAttribute("miAdultos");
-            if (adultos == null) {
-                    sesion.setAttribute("misAdultos", adultos);
-                    adultos = new ListaSEAdulto();
-                }
-
+            ListaSEAdulto adultos = (ListaSEAdulto)sesion.getAttribute("misAdultos");
+  
             String identificacion = request.getParameter("identificacion");
             String nombre = request.getParameter("nombre");
             String apellidos = request.getParameter("apellidos");
@@ -90,17 +84,20 @@ public final class almacenamiento_jsp extends org.apache.jasper.runtime.HttpJspB
             String encargado = request.getParameter("encargado");
             String ficha_medica = request.getParameter("ficha_medica");
 
-            if(identificacion != null){
+            if(nombre != null){
                 AdultoMayor adulto = new AdultoMayor(identificacion, nombre, apellidos, numero_habitacion,
                     encargado, ficha_medica, null, null);
                 sesion.setAttribute("adultino", adulto);
                 adultos.agregar(adulto);
-            }
-
-            
-            
+                
+                //AdultoMayor adulto1 = new AdultoMayor(identificacion, "tolitroncop", apellidos, numero_habitacion,
+                //    encargado, ficha_medica, null, null);
+                //sesion.setAttribute("adultino", adulto);
+                //adultos.agregar(adulto1);
+                //adultos.agregar(adulto1);
+            }            
             //out.println(adulto);
-
+        
       out.write("\n");
       out.write("        <div class=\"container\">\n");
       out.write("            <div class=\"row justify-content-between\">\n");
@@ -110,71 +107,66 @@ public final class almacenamiento_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("                             alt=\"Logo Provejez\" width=\"375\">\n");
       out.write("                    </figure>\n");
       out.write("                    <div class=\"d-grid gap-1  mt-3\">\n");
-      out.write("                        <button class=\"btn btn-primary\" type=\"button\">Agregar</button>\n");
-      out.write("                        <button class=\"btn btn-primary\" type=\"button\">Volver</button>\n");
+      out.write("                        <a class=\"btn btn-primary\" type=\"button\" href=\"formularioAdultoMayor.jsp\">                                \n");
+      out.write("                            Agregar\n");
+      out.write("                        </a>\n");
+      out.write("                        <a class=\"btn btn-primary\" type=\"button\" href=\"formularioAdultoMayor.jsp\">                                \n");
+      out.write("                            Volver\n");
+      out.write("                        </a>\n");
       out.write("                    </div>\n");
       out.write("                </div>\n");
       out.write("                <div class=\"col-6\">\n");
-      out.write("                    <div class=\"accordion accordion-flush\" id=\"scroll\">\n");
-      out.write("                        \n");
+      out.write("                    <div class=\"accordion accordion-flush mt-5 mr-5\" id=\"scroll\">\n");
+      out.write("                        ");
+
+                            if(adultos != null){                                
+                                for(int i = 0; i < adultos.tamanio(); i++) {
+                                    Integer indice = new Integer(i);
+                                    sesion.setAttribute("indice", indice);
+                        
+                        
+      out.write("\n");
       out.write("                        <div class=\"accordion-item\">\n");
       out.write("                            <h2 class=\"accordion-header\" id=\"flush-headingOne\">\n");
       out.write("                                <button class=\"accordion-button collapsed\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#flush-collapseOne\" aria-expanded=\"false\" aria-controls=\"flush-collapseOne\">\n");
       out.write("                                    <div class=\"justify-content-beetwen\">\n");
       out.write("                                        ");
-      out.print(adultos.obtener(0).nombre  + " " + adultos.obtener(0).apellidos );
+      out.print(adultos.obtener(i).nombre  + " " + adultos.obtener(i).apellidos );
       out.write("\n");
       out.write("                                        Habitacion: ");
-      out.print(adultos.obtener(0).getNumero_habitacion());
+      out.print(adultos.obtener(i).getNumero_habitacion());
       out.write("\n");
       out.write("                                    </div>\n");
-      out.write("                                    \n");
+      out.write("\n");
       out.write("                                </button>\n");
       out.write("                            </h2>\n");
       out.write("                            <div id=\"flush-collapseOne\" class=\"accordion-collapse collapse\" aria-labelledby=\"flush-headingOne\" data-bs-parent=\"#accordionFlushExample\">\n");
-      out.write("                                <div class=\"accordion-body\">\n");
-      out.write("                                    <button>\n");
-      out.write("                                        Hector\n");
-      out.write("                                        \n");
-      out.write("                                    </button>\n");
-      out.write("                                    <a href=\"formularioMedicamento.jsp\">Hijole</a>\n");
-      out.write("                                        \n");
+      out.write("                                <div class=\"accordion-body justify-content-center\">      \n");
+      out.write("\n");
+      out.write("                                    <a class=\"btn btn-primary\" href=\"#\" role=\"button\">Ver perfil</a>\n");
+      out.write("                                    <a class=\"btn btn-primary\" href=\"formularioMedicamento.jsp\" role=\"button\">Modificar</a>\n");
+      out.write("                                    <a class=\"btn btn-primary\" href=\"#\" role=\"button\">Eliminar</a>\n");
+      out.write("\n");
       out.write("                                </div>\n");
       out.write("                            </div>\n");
       out.write("                        </div>\n");
-      out.write("                        <div class=\"accordion-item\">\n");
-      out.write("                            <h2 class=\"accordion-header\" id=\"flush-headingTwo\">\n");
-      out.write("                                <button class=\"accordion-button collapsed\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#flush-collapseTwo\" aria-expanded=\"false\" aria-controls=\"flush-collapseTwo\">\n");
-      out.write("                                    Accordion Item #2\n");
-      out.write("                                </button>\n");
-      out.write("                            </h2>\n");
-      out.write("                            <div id=\"flush-collapseTwo\" class=\"accordion-collapse collapse\" aria-labelledby=\"flush-headingTwo\" data-bs-parent=\"#accordionFlushExample\">\n");
-      out.write("                                <div class=\"accordion-body\">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>\n");
-      out.write("                            </div>\n");
-      out.write("                        </div>\n");
-      out.write("                        <div class=\"accordion-item\">\n");
-      out.write("                            <h2 class=\"accordion-header\" id=\"flush-headingThree\">\n");
-      out.write("                                <button class=\"accordion-button collapsed\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#flush-collapseThree\" aria-expanded=\"false\" aria-controls=\"flush-collapseThree\">\n");
-      out.write("                                    Accordion Item #3\n");
-      out.write("                                </button>\n");
-      out.write("                            </h2>\n");
-      out.write("                            <div id=\"flush-collapseThree\" class=\"accordion-collapse collapse\" aria-labelledby=\"flush-headingThree\" data-bs-parent=\"#accordionFlushExample\">\n");
-      out.write("                                <div class=\"accordion-body\">Placeholder content for this accordion,\n");
-      out.write("                                    which is intended to demonstrate the <code>.accordion-flush</code> \n");
-      out.write("                                    class. This is the third item's accordion body. Nothing more exciting\n");
-      out.write("                                    happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>\n");
-      out.write("                            </div>\n");
-      out.write("                        </div>\n");
+      out.write("                        ");
+   
+                            }
+                            } else {
+                            out.println("No hay adultos");
+                            }
+                        
+      out.write("\n");
       out.write("                    </div>\n");
       out.write("                </div>\n");
       out.write("            </div>\n");
       out.write("        </div>\n");
-      out.write("    </div> \n");
-      out.write("    <script src=\"js/query.min.js\"></script>}\n");
-      out.write("    <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js\"></script>\n");
-      out.write("    \n");
-      out.write("    \n");
-      out.write("</body>\n");
+      out.write("        <script src=\"js/query.min.js\"></script>\n");
+      out.write("        <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js\"></script>\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("    </body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){

@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page session="true"%>
+<%@page import="listas.ListaSEAdulto" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,6 +22,7 @@
                         <div class="mb-3">
                             <label>Joven, su numero</label>
                             <input type="text" class="form-control" name="nombree" placeholder="nombremmgvo">
+                            <a href="almacenamiento.jsp">mondá</a>
                         </div>
                         <div class="mb-3">
                             <label>Joven, su celular</label>
@@ -33,6 +36,10 @@
                 <div class = "col-sm">
                     <div class="alert alert-primary" role="alert">
                         <%
+                            HttpSession sesion = request.getSession();
+                            ListaSEAdulto adultos = new ListaSEAdulto();
+                            sesion.setAttribute("misAdultos", adultos);
+                            
                             String nombre = request.getParameter("nombree");
                             String celuco = request.getParameter("celular");
                             if (nombre != null && celuco != null) {
@@ -41,6 +48,7 @@
                                 } else {
                                 out.println("grandes mentes, grandes cacas");
                             }
+                            
                             
                             %>
                     </div>

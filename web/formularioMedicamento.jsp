@@ -74,7 +74,8 @@
             <%
                 HttpSession sesion = request.getSession();
                 ListaSEAdulto adultos = (ListaSEAdulto)sesion.getAttribute("misAdultos");
-                AdultoMayor adultino = (AdultoMayor)sesion.getAttribute("adultino");
+
+                Integer indice = (Integer)sesion.getAttribute("indice");
                 
                 String nombreMedi = request.getParameter("nombreMedi");
                 String dosisMedi = request.getParameter("dosisMedi");
@@ -85,13 +86,10 @@
                 ListaSEMedicamento listaMedi = new ListaSEMedicamento();
                 listaMedi.agregar(pastilla);
                 
-                //session.getAttribute("misAdultos");
-                adultino.setMedicamentos(listaMedi);
-               
-                //adultos.obtener(0).setMedicamentos(listaMedi);
-                //adulto.setMedicamentos(listaMedi);
+                adultos.obtener(indice.intValue()).setMedicamentos(listaMedi);
+
                 
-                out.println(adultino);
+                out.println(adultos.obtener(indice.intValue()));
             %>
         </div>
     </body>

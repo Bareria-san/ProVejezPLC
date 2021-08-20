@@ -16,7 +16,7 @@ public class ListaSEAdulto {
     private NodoAdulto primerNodo;
     private NodoAdulto ultimoNodo;
     private int n;
-
+   
     public ListaSEAdulto() {
         primerNodo = null;
         ultimoNodo = null;
