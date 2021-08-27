@@ -33,7 +33,7 @@
         <div class = "container mt-4">
             <div class = "row justify-content-md-center">
                 <div class = "col-lg-6">
-                    <form action="almacenamiento.jsp" method="post">
+                    <form action="adultosMayores.jsp" method="post">
                         <div class="mb-3">
                             <label>Número de identificación</label>
                             <input type="text" class="form-control" name="identificacion" placeholder="identificacion">

@@ -8,52 +8,34 @@
 <%@page session="true"%>
 <%@page import="listas.ListaSEAdulto" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <title>Ensayito</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="estilos/style_carga.css">
+
+        <title>ProVejez</title>
     </head>
-    <body>
-        <div class = "container mt-5">
-            <div class = "row">
-                <div class = "col-sm">
-                    <form action="index.jsp" method="post">
-                        <div class="mb-3">
-                            <label>Joven, su numero</label>
-                            <input type="text" class="form-control" name="nombree" placeholder="nombremmgvo">
-                            <a href="almacenamiento.jsp">mondá</a>
-                        </div>
-                        <div class="mb-3">
-                            <label>Joven, su celular</label>
-                            <input type="text" class="form-control" name="celular" placeholder="contesta hprra">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
-                    </form>
-                </div>
+    <body class="body">
+        <%
+            HttpSession sesion = request.getSession();
+            ListaSEAdulto adultos = new ListaSEAdulto();
+            sesion.setAttribute("misAdultos", adultos);    
+        %>
+        <header>
+            <center><video class="video" src="video/Comp1.mp4" autoplay muted loop width="840" height="480"></video></center>      
+            <div><image class="logo" src="images/LetraLogo.png" autoplay muted loop width="340" height="100"></image></div>
+        </header>
+        <div class="centrado">
+            <div class="lds-roller">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
             </div>
-            <div class = "row">
-                <div class = "col-sm">
-                    <div class="alert alert-primary" role="alert">
-                        <%
-                            HttpSession sesion = request.getSession();
-                            ListaSEAdulto adultos = new ListaSEAdulto();
-                            sesion.setAttribute("misAdultos", adultos);
-                            
-                            String nombre = request.getParameter("nombree");
-                            String celuco = request.getParameter("celular");
-                            if (nombre != null && celuco != null) {
-                                  String saludo = "sumerce es " + nombre + " con celcho: " + celuco;
-                                    out.println(saludo);  
-                                } else {
-                                out.println("grandes mentes, grandes cacas");
-                            }
-                            
-                            
-                            %>
-                    </div>
-                </div>
-            </div>
-        </div>
     </body>
 </html>
